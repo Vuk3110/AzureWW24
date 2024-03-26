@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\validator\\namevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\models\\validator\\namevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\validator\\locationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\models\\validator\\locationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\validator\\leadvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\models\\validator\\leadvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\validator\\contactvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\models\\validator\\contactvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\contact.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\models\\contact.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,11 +50,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocationValidator.cs",
+              "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\LocationValidator.cs",
+              "RelativeDocumentMoniker": "AzureWW24\\Models\\Validator\\LocationValidator.cs",
+              "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\LocationValidator.cs",
+              "RelativeToolTip": "AzureWW24\\Models\\Validator\\LocationValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T09:57:42.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ContactValidator.cs",
+              "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\ContactValidator.cs",
+              "RelativeDocumentMoniker": "AzureWW24\\Models\\Validator\\ContactValidator.cs",
+              "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\ContactValidator.cs",
+              "RelativeToolTip": "AzureWW24\\Models\\Validator\\ContactValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T09:57:18.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "NameValidator.cs",
+              "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\NameValidator.cs",
+              "RelativeDocumentMoniker": "AzureWW24\\Models\\Validator\\NameValidator.cs",
+              "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\NameValidator.cs",
+              "RelativeToolTip": "AzureWW24\\Models\\Validator\\NameValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T09:56:49.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LeadValidator.cs",
+              "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\LeadValidator.cs",
+              "RelativeDocumentMoniker": "AzureWW24\\Models\\Validator\\LeadValidator.cs",
+              "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Validator\\LeadValidator.cs",
+              "RelativeToolTip": "AzureWW24\\Models\\Validator\\LeadValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-26T09:55:52.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "local.settings.json",
+              "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\local.settings.json",
+              "RelativeDocumentMoniker": "AzureWW24\\local.settings.json",
+              "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\local.settings.json",
+              "RelativeToolTip": "AzureWW24\\local.settings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-03-26T09:50:19.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Contact.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Contact.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Models\\Contact.cs",
@@ -47,7 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Location.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Location.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Models\\Location.cs",
@@ -60,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Name.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Name.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Models\\Name.cs",
@@ -73,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Lead.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Models\\Lead.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Models\\Lead.cs",
@@ -86,7 +171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Function1.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Function1.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Function1.cs",
