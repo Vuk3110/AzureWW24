@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\entities\\leadauditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\entities\\leadauditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\leadfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\leadfunction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\local.settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\entities\\leadauditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|solutionrelative:azureww24\\entities\\leadauditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0A06A3AD-3D11-43D8-8F06-9B45C2F58043}|AzureWW24\\AzureWW24.csproj|c:\\users\\vuktrific\\source\\repos\\azureww24\\azureww24\\models\\validator\\leadvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -76,14 +76,14 @@
               "RelativeDocumentMoniker": "AzureWW24\\Service\\EmailService.cs",
               "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Service\\EmailService.cs",
               "RelativeToolTip": "AzureWW24\\Service\\EmailService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-26T14:25:37.022Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "LeadAuditEntity.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\Entities\\LeadAuditEntity.cs",
               "RelativeDocumentMoniker": "AzureWW24\\Entities\\LeadAuditEntity.cs",
@@ -91,8 +91,7 @@
               "RelativeToolTip": "AzureWW24\\Entities\\LeadAuditEntity.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T13:16:59.313Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T13:16:59.313Z"
             },
             {
               "$type": "Document",
@@ -104,8 +103,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\StateModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T12:40:12.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T12:40:12.142Z"
             },
             {
               "$type": "Document",
@@ -117,8 +115,7 @@
               "RelativeToolTip": "AzureWW24\\Entities\\LeadEntity.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAuwBwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T10:09:19.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T10:09:19.196Z"
             },
             {
               "$type": "Document",
@@ -130,8 +127,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Validator\\LocationValidator.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAqwBQAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:57:42.459Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:57:42.459Z"
             },
             {
               "$type": "Document",
@@ -143,8 +139,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Validator\\ContactValidator.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAB+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:57:18.588Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:57:18.588Z"
             },
             {
               "$type": "Document",
@@ -156,8 +151,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Validator\\NameValidator.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:56:49.619Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:56:49.619Z"
             },
             {
               "$type": "Document",
@@ -169,18 +163,17 @@
               "RelativeToolTip": "AzureWW24\\Models\\Validator\\LeadValidator.cs",
               "ViewState": "AQIAAFIAAAAAAAAAAAAkwE8AAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:55:52.778Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:55:52.778Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "local.settings.json",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\local.settings.json",
               "RelativeDocumentMoniker": "AzureWW24\\local.settings.json",
               "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\local.settings.json",
               "RelativeToolTip": "AzureWW24\\local.settings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAvAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-03-26T09:50:19.958Z",
               "EditorCaption": ""
@@ -195,8 +188,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Contact.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:44:16.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:44:16.13Z"
             },
             {
               "$type": "Document",
@@ -208,8 +200,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Location.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:43:55.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:43:55.599Z"
             },
             {
               "$type": "Document",
@@ -221,8 +212,7 @@
               "RelativeToolTip": "AzureWW24\\Models\\Name.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:43:35.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:43:35.094Z"
             },
             {
               "$type": "Document",
@@ -234,18 +224,17 @@
               "RelativeToolTip": "AzureWW24\\Models\\Lead.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAswBIAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T09:43:09.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-26T09:43:09.711Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "LeadFunction.cs",
               "DocumentMoniker": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\LeadFunction.cs",
               "RelativeDocumentMoniker": "AzureWW24\\LeadFunction.cs",
               "ToolTip": "C:\\Users\\VukTrific\\source\\repos\\AzureWW24\\AzureWW24\\LeadFunction.cs",
               "RelativeToolTip": "AzureWW24\\LeadFunction.cs",
-              "ViewState": "AQIAAEkAAAAAAAAAAAAswF8AAAAFAAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAmwFoAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-26T09:42:26.195Z",
               "EditorCaption": ""

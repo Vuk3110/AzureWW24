@@ -74,6 +74,26 @@ namespace AzureWW24
 
             await tableClient.AddEntityAsync(leadEntity);
 
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var fromEmail = "vuktrific@gmail.com";
+            var toEmail = "verafurtula@gmail.com";
+            var subject = $"A New Lead Has Arrived for {lead.Date}";
+            var plainTextContent = $"Lead details: {lead.ToString()}"; // Implementirajte .ToString() na Lead modelu za lepši ispis
+            var htmlContent = "<strong>HTML version of Lead details</strong>"; // Slično, kreirajte HTML predstavu detalja Lead-a
+
+            var emailSent = await EmailService.SendLeadEmailAsync(apiKey, fromEmail, toEmail, subject, plainTextContent, htmlContent);
+
+            if (emailSent)
+            {
+                log.LogInformation("Email sent successfully.");
+                // Dodajte logiku za brisanje/upis u tabelu ovde
+            }
+            else
+            {
+                log.LogError("Failed to send email.");
+                // Logika za grešku u slanju
+            }
+
             return new OkObjectResult("");
         }
 
