@@ -13,7 +13,7 @@ namespace AzureWW24.Models
         public string Source { get; set; }
         public Name Name { get; set; }
         public Contact Contact { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public int Size { get; set; }
   
         public string ServiceType { get; set; }
