@@ -15,5 +15,10 @@ namespace AzureWW24.Models.Validator
             RuleFor(location => location.City).NotEmpty();
             RuleFor(location => location.Zip).InclusiveBetween(10000, 99999);
         }
+
+     
+
+        
+
     }
 }

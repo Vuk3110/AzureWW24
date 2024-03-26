@@ -34,7 +34,13 @@ namespace AzureWW24
 
             if (!validationResult.IsValid)
             {
-                return new BadRequestObjectResult(validationResult.Errors.Select(e => e.ErrorMessage));
+                var errorResponse = new
+                {
+                    Error = "validation error",
+                    Details = validationResult.Errors.Select(e => e.ErrorMessage)
+                };
+
+                return new BadRequestObjectResult(errorResponse);
             }
 
             var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
