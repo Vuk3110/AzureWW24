@@ -28,7 +28,7 @@ namespace AzureWW24
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             Lead lead = JsonConvert.DeserializeObject<Lead>(requestBody);
 
-           
+
             var validator = new LeadValidator();
             var validationResult = validator.Validate(lead);
 
@@ -37,10 +37,31 @@ namespace AzureWW24
                 return new BadRequestObjectResult(validationResult.Errors.Select(e => e.ErrorMessage));
             }
 
-            var leadEntity = new LeadEntity("leadSource", Guid.NewGuid().ToString(), lead);
-
             var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
             await tableClient.CreateIfNotExistsAsync();
+
+            var leadEntity = new TableEntity
+            {
+                PartitionKey = "Lead",
+                RowKey = Guid.NewGuid().ToString(),
+            };
+
+            leadEntity["Source"] = lead.Source;
+            leadEntity["FirstName"] = lead.Name.First;
+            leadEntity["LastName"] = lead.Name.Last;
+            leadEntity["Email"] = lead.Contact.Email;
+            leadEntity["Phone"] = lead.Contact.Phone ?? "";
+            leadEntity["Date"] = lead.Date;
+            leadEntity["Size"] = lead.Size.ToString();
+            leadEntity["ServiceType"] = lead.ServiceType;
+            leadEntity["FromState"] = lead.From.State;
+            leadEntity["FromCity"] = lead.From.City;
+            leadEntity["FromZip"] = lead.From.Zip.ToString();
+            leadEntity["ToState"] = lead.To.State;
+            leadEntity["ToCity"] = lead.To.City;
+            leadEntity["ToZip"] = lead.To.Zip.ToString();
+
+
             await tableClient.AddEntityAsync(leadEntity);
 
             return new OkObjectResult("Lead saved successfully");

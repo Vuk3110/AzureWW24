@@ -18,10 +18,8 @@ namespace AzureWW24.Entities
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
 
-        // Koristite JSON stringove za čuvanje kompleksnih objekata
         public string LeadData { get; set; }
 
-        // Ignorišite ovo polje prilikom čuvanja, koristi se samo u aplikaciji
         [IgnoreProperty]
         public Lead Lead
         {
