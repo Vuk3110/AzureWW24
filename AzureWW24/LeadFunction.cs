@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -39,7 +39,7 @@ namespace AzureWW24
                     Error = "validation error",
                     Details = validationResult.Errors.Select(e => e.ErrorMessage)
                 };
-
+                await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)));
                 return new BadRequestObjectResult(errorResponse);
             }
 
@@ -67,10 +67,31 @@ namespace AzureWW24
             leadEntity["ToCity"] = lead.To.City;
             leadEntity["ToZip"] = lead.To.Zip.ToString();
 
+            string requestPayload = System.Text.Json.JsonSerializer.Serialize(lead);
+
+
+            await CreateAndLogAuditRecord(requestBody, true, "Request processed successfully");
 
             await tableClient.AddEntityAsync(leadEntity);
 
-            return new OkObjectResult("Lead saved successfully");
+            return new OkObjectResult("");
+        }
+
+        private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details)
+        {
+            var auditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadsReceivedAudit");
+            await auditTableClient.CreateIfNotExistsAsync();
+
+            var auditEntity = new LeadAuditEntity
+            {
+                PartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                RowKey = Guid.NewGuid().ToString(),
+                IsSuccessful = isSuccess,
+                Details = details,
+                RequestPayload = requestBody
+            };
+
+            await auditTableClient.AddEntityAsync(auditEntity);
         }
     }
 }
