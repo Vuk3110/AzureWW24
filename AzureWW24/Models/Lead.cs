@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace AzureWW24.Models
         public Contact Contact { get; set; }
         public string Date { get; set; }
         public int Size { get; set; }
+  
         public string ServiceType { get; set; }
         public Location From { get; set; }
         public Location To { get; set; }
