@@ -20,6 +20,29 @@ namespace AzureWW24.Entities
 
         public string LeadData { get; set; }
 
+        public string First {  get; set; }
+        public string Last { get; set; }
+
+        public string Size { get; set; }
+
+        public string Date { get; set; }
+
+        public string ServiceType { get; set; }
+
+        public string Email { get; set; }
+        public string Phone { get; set; }
+
+        public string FromState { get; set; }
+        public string FromCity { get; set; }
+        public string FromZip { get; set; }
+
+        public string ToState { get; set; }
+        public string ToCity { get; set; }
+        public string ToZip { get; set; }
+
+
+
+
         [IgnoreProperty]
         public Lead Lead
         {

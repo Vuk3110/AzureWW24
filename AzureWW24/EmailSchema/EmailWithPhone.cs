@@ -11,21 +11,21 @@ namespace AzureWW24.EmailSchema
     {
         public string GetSubjectWithPhone(LeadEntity leadEntity)
         {
-            string head = "A New Lead Has Arrived for " + leadEntity.Lead.Date + " with phone";
+            string head = "A New Lead Has Arrived for " + leadEntity.Date + " with phone";
             return head;
         }
 
         public string GetBodyWithPhone(LeadEntity leadEntity)
         {
             string body = "Dear sales,\r\n" +
-                "" + leadEntity.Lead.Name.First + " " + leadEntity.Lead.Name.Last + " has reqestest a move with following data.\r\n" +
-                "Date: " + leadEntity.Lead.Date + "\r\n" +
-                "Size: " + leadEntity.Lead.Size + "\r\n" +
-                "Service type: " + leadEntity.Lead.ServiceType + "\r\n" +
-                "Moving from: " + leadEntity.Lead.From.City + ", " + leadEntity.Lead.From.Zip + ", " + leadEntity.Lead.From.State + "\r\n" +
-                "Moving to: " + leadEntity.Lead.To.City + ", " + leadEntity.Lead.To.Zip + ", " + leadEntity.Lead.To.State + "\r\n" +
-                "You can contact the lead by email " + leadEntity.Lead.Contact.Email + "\r\n" +
-                "Or by phone " + leadEntity.Lead.Contact.Phone + "\r\n" +
+                "" + leadEntity.First + " " + leadEntity.Last + " has reqestest a move with following data.\r\n" +
+                "Date: " + leadEntity.Date + "\r\n" +
+                "Size: " + leadEntity.Size + "\r\n" +
+                "Service type: " + leadEntity.ServiceType + "\r\n" +
+                "Moving from: " + leadEntity.FromCity + ", " + leadEntity.FromZip + ", " + leadEntity.FromState + "\r\n" +
+                "Moving to: " + leadEntity.ToCity + ", " + leadEntity.ToZip + ", " + leadEntity.ToState + "\r\n" +
+                "You can contact the lead by email " + leadEntity.Email + "\r\n" +
+                "Or by phone " + leadEntity.Phone + "\r\n" +
                 "Kind regards,\r\n" +
                 "Lead collector";
             return body;

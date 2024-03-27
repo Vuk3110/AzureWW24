@@ -27,12 +27,12 @@ namespace AzureWW24.Models.Validator
 
             RuleFor(lead => new { lead.From.Zip, lead.From.State })
                 .Must(x => ValidateStateAndZip(x.Zip, x.State))
-                
+
                 .WithMessage("'From' ZIP code is invalid for the state.");
 
             RuleFor(lead => new { lead.To.Zip, lead.To.State })
                 .Must(x => ValidateStateAndZip(x.Zip, x.State))
-                
+
                 .WithMessage("'To' ZIP code is invalid for the state.");
         }
 

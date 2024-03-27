@@ -84,10 +84,11 @@ namespace AzureWW24
        
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("*/59  *  * * * *")] TimerInfo myTimer,  ILogger log) 
-        
-        
-        {
+        public static async Task SendMail([TimerTrigger("*/30  *  * * * *")] TimerInfo myTimer,  ILogger log)
+
+
+
+        { 
             
 
             var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
@@ -95,11 +96,7 @@ namespace AzureWW24
 
            
             var leadToDelete = tableClient.Query<LeadEntity>().FirstOrDefault();
-            string filterCondition = $"RowKey eq '{leadToDelete.RowKey}'";
-
-            var leadData = tableClient.Query<LeadAuditEntity>(filter: filterCondition).FirstOrDefault().RequestPayload;
-
-            leadToDelete.LeadData = leadData;
+           
             if(leadToDelete != null)
             {
 
@@ -120,12 +117,15 @@ namespace AzureWW24
                     string subject = "";
                     string body = "";
 
+                    string toAddress = leadToDelete.FromState == "MD" ? Environment.GetEnvironmentVariable("MarylandEmail")
+                        : Environment.GetEnvironmentVariable("NonMarylandEmail");
 
-                    if (!string.IsNullOrEmpty(leadToDelete.Lead.Contact?.Phone))
+                    string fromAddress = Environment.GetEnvironmentVariable("fromAddress");
+                    if (!string.IsNullOrEmpty(leadToDelete.Phone))
                     {
                         EmailWithPhone emailWithPhone = new();
                         body = emailWithPhone.GetBodyWithPhone(leadToDelete);
-                        subject=emailWithPhone.GetSubjectWithPhone(leadToDelete);
+                        subject = emailWithPhone.GetSubjectWithPhone(leadToDelete);
 
                     }
 
@@ -135,9 +135,9 @@ namespace AzureWW24
                         body=emailWithoutPhone.GetBodyWithoutPhone(leadToDelete);
                         subject=emailWithoutPhone.GetSubjectWithoutPhone(leadToDelete);
                     }
-
-                    string fromAddress = "vuktrific@gmail.com";
-                    string toAddress = "verafurtula@gmail.com";
+                    
+                  
+                  
 
                     bool sentMail;
                  
