@@ -84,7 +84,7 @@ namespace AzureWW24
        
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("*  */5  * * * *")] TimerInfo myTimer,  ILogger log)
+        public static async Task SendMail([TimerTrigger("*/30  *  * * * *")] TimerInfo myTimer,  ILogger log)
 
 
 
@@ -109,7 +109,7 @@ namespace AzureWW24
                     int smtpPort = 587;
                     bool enableSSL = true;
                     string username = "vuktrific@gmail.com";
-                    string password = "giro xwib hfub celi";
+                    string password = Environment.GetEnvironmentVariable("password");
                     string message;
 
                     var emailService = new EmailService(smtpServer, smtpPort, enableSSL, username, password);
