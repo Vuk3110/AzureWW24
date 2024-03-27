@@ -41,14 +41,14 @@ namespace AzureWW24.Models.Validator
             return !date.Equals(default(DateOnly));
         }
 
-        private static bool ValidateState(string acronym) => stateModel.Any(state => state.StateAcronym == acronym);
+        private static bool ValidateState(string acronym) => state.Any(state => state.StateAcronym == acronym);
 
         private static bool ValidateStateAndZip(int zip, string acronym)
         {
-            return stateModel.Any(state => acronym == state.StateAcronym && zip >= state.FromZip && zip <= state.ToZip);
+            return state.Any(state => acronym == state.StateAcronym && zip >= state.FromZip && zip <= state.ToZip);
         }
 
-        public static List<StateModel> stateModel = new List<StateModel>()
+        public static List<State> state = new List<State>()
        {
            new(){ StateAcronym = "AL", FromZip = 35004, ToZip = 36925 },
            new(){ StateAcronym = "AK", FromZip = 99501, ToZip = 99950 },

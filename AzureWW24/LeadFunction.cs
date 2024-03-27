@@ -13,6 +13,9 @@ using AzureWW24.Models;
 using AzureWW24.Models.Validator;
 using System.Linq;
 using AzureWW24.Entities;
+using System.Net.Mail;
+using System.Net;
+using AzureWW24.EmailSchema;
 
 namespace AzureWW24
 {
@@ -39,7 +42,7 @@ namespace AzureWW24
                     Error = "validation error",
                     Details = validationResult.Errors.Select(e => e.ErrorMessage)
                 };
-                await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)));
+                await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)),"");
                 return new BadRequestObjectResult(errorResponse);
             }
 
@@ -70,48 +73,149 @@ namespace AzureWW24
             string requestPayload = System.Text.Json.JsonSerializer.Serialize(lead);
 
 
-            await CreateAndLogAuditRecord(requestBody, true, "Request processed successfully");
+            await CreateAndLogAuditRecord(requestBody, true, "Request processed successfully", leadEntity.RowKey);
 
             await tableClient.AddEntityAsync(leadEntity);
 
-            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-            var fromEmail = "vuktrific@gmail.com";
-            var toEmail = "verafurtula@gmail.com";
-            var subject = $"A New Lead Has Arrived for {lead.Date}";
-            var plainTextContent = $"Lead details: {lead.ToString()}"; // Implementirajte .ToString() na Lead modelu za lepši ispis
-            var htmlContent = "<strong>HTML version of Lead details</strong>"; // Slično, kreirajte HTML predstavu detalja Lead-a
-
-            var emailSent = await EmailService.SendLeadEmailAsync(apiKey, fromEmail, toEmail, subject, plainTextContent, htmlContent);
-
-            if (emailSent)
-            {
-                log.LogInformation("Email sent successfully.");
-                // Dodajte logiku za brisanje/upis u tabelu ovde
-            }
-            else
-            {
-                log.LogError("Failed to send email.");
-                // Logika za grešku u slanju
-            }
 
             return new OkObjectResult("");
         }
 
-        private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details)
-        {
-            var auditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadsReceivedAudit");
-            await auditTableClient.CreateIfNotExistsAsync();
+       
 
-            var auditEntity = new LeadAuditEntity
+        [FunctionName("SendEmail")]
+        public static async Task SendMail([TimerTrigger("*/59  *  * * * *")] TimerInfo myTimer,  ILogger log) 
+        
+        
+        {
+            
+
+            var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
+
+
+           
+            var leadToDelete = tableClient.Query<LeadEntity>().FirstOrDefault();
+            string filterCondition = $"RowKey eq '{leadToDelete.RowKey}'";
+
+            var leadData = tableClient.Query<LeadAuditEntity>(filter: filterCondition).FirstOrDefault().RequestPayload;
+
+            leadToDelete.LeadData = leadData;
+            if(leadToDelete != null)
+            {
+
+            try
+            {
+               
+                     string rowKey = leadToDelete.RowKey;
+
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    bool enableSSL = true;
+                    string username = "vuktrific@gmail.com";
+                    string password = "giro xwib hfub celi";
+                    string message;
+
+                    var emailService = new EmailService(smtpServer, smtpPort, enableSSL, username, password);
+
+                    string subject = "";
+                    string body = "";
+
+
+                    if (!string.IsNullOrEmpty(leadToDelete.Lead.Contact?.Phone))
+                    {
+                        EmailWithPhone emailWithPhone = new();
+                        body = emailWithPhone.GetBodyWithPhone(leadToDelete);
+                        subject=emailWithPhone.GetSubjectWithPhone(leadToDelete);
+
+                    }
+
+                    else
+                    {
+                        EmailWithoutPhone emailWithoutPhone = new();
+                        body=emailWithoutPhone.GetBodyWithoutPhone(leadToDelete);
+                        subject=emailWithoutPhone.GetSubjectWithoutPhone(leadToDelete);
+                    }
+
+                    string fromAddress = "vuktrific@gmail.com";
+                    string toAddress = "verafurtula@gmail.com";
+
+                    bool sentMail;
+                 
+                    try
+                    {
+                        
+                        emailService.SendEmail(fromAddress, toAddress, subject, body);
+                        message = "Email sent successfully!";
+                        
+                         sentMail = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        message= ex.Message;
+                      
+                         sentMail = false;
+                    }
+
+                    await CreateLeadSentAudit(sentMail, message, rowKey);
+                   
+                    await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
+
+                    
+                    log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
+                
+            }
+
+            catch (Exception ex)
+            {
+                log.LogError($"Greška pri slanju emaila: {ex.Message}");
+                // Opciono: Logika za pokušaje slanja email-a
+                // Možete ažurirati entitet sa novim brojem pokušaja, dodati logiku za maksimalan broj pokušaja itd.
+                // Ne brišite entitet, ali možete zabeležiti pokušaj
+            }
+            }
+
+           
+
+           
+            }
+
+    private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details, string rowKey)
+    {
+        var auditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadsReceivedAudit");
+        await auditTableClient.CreateIfNotExistsAsync();
+
+        var auditEntity = new LeadAuditEntity
+        {
+            PartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+            RowKey =rowKey,
+            IsSuccessful = isSuccess,
+            Details = details,
+            RequestPayload = requestBody
+        };
+
+        await auditTableClient.AddEntityAsync(auditEntity);
+    }
+
+        private static async Task CreateLeadSentAudit(bool isSuccess, string details, string rowKey)
+        {
+            var sentAuditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadSentAudit");
+            await sentAuditTableClient.CreateIfNotExistsAsync();
+
+            var sentAutid = new LeadSentAudit
             {
                 PartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd"),
-                RowKey = Guid.NewGuid().ToString(),
+                RowKey = rowKey,
                 IsSuccessful = isSuccess,
                 Details = details,
-                RequestPayload = requestBody
+                
             };
 
-            await auditTableClient.AddEntityAsync(auditEntity);
+            await sentAuditTableClient.AddEntityAsync(sentAutid);
         }
+
+
+
     }
+
+
 }

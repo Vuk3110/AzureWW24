@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AzureWW24.Models
 {
-    public class StateModel
+    public class State
     {
         public string StateAcronym { get; set; }
         public int FromZip { get; set; }
