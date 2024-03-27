@@ -84,7 +84,7 @@ namespace AzureWW24
        
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("*/30  *  * * * *")] TimerInfo myTimer,  ILogger log)
+        public static async Task SendMail([TimerTrigger("*  */5  * * * *")] TimerInfo myTimer,  ILogger log)
 
 
 
