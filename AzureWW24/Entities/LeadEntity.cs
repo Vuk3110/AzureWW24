@@ -18,7 +18,7 @@ namespace AzureWW24.Entities
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
 
-        public string LeadData { get; set; }
+      
 
         public string First {  get; set; }
         public string Last { get; set; }
@@ -40,7 +40,7 @@ namespace AzureWW24.Entities
         public string ToCity { get; set; }
         public string ToZip { get; set; }
 
-
+        public int TryCount { get; set; }
 
 
      

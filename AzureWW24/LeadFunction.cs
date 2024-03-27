@@ -69,6 +69,7 @@ namespace AzureWW24
             leadEntity["ToState"] = lead.To.State;
             leadEntity["ToCity"] = lead.To.City;
             leadEntity["ToZip"] = lead.To.Zip.ToString();
+            leadEntity["TryCount"] = 0;
 
             string requestPayload = System.Text.Json.JsonSerializer.Serialize(lead);
 
@@ -84,13 +85,13 @@ namespace AzureWW24
        
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("*/30  *  * * * *")] TimerInfo myTimer,  ILogger log)
+        public static async Task SendMail([TimerTrigger("*/10  *  * * * *")] TimerInfo myTimer,  ILogger log)
 
 
 
-        { 
+        {
+
             
-
             var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
 
 
@@ -99,11 +100,13 @@ namespace AzureWW24
            
             if(leadToDelete != null)
             {
-
+                bool breakPoint = false;
+            while(leadToDelete.TryCount<5&&!breakPoint)
             try
             {
-               
-                     string rowKey = leadToDelete.RowKey;
+                    
+                         
+                    string rowKey = leadToDelete.RowKey;
 
                     string smtpServer = "smtp.gmail.com";
                     int smtpPort = 587;
@@ -154,7 +157,8 @@ namespace AzureWW24
                         message= ex.Message;
                       
                          sentMail = false;
-                    }
+                         leadToDelete.TryCount++;
+                        }
 
                     await CreateLeadSentAudit(sentMail, message, rowKey);
                    
@@ -162,22 +166,31 @@ namespace AzureWW24
 
                     
                     log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
+                        breakPoint = true;
+                        
                 
             }
 
             catch (Exception ex)
             {
+
                 log.LogError($"Greška pri slanju emaila: {ex.Message}");
-                // Opciono: Logika za pokušaje slanja email-a
-                // Možete ažurirati entitet sa novim brojem pokušaja, dodati logiku za maksimalan broj pokušaja itd.
-                // Ne brišite entitet, ali možete zabeležiti pokušaj
+                        leadToDelete.TryCount++;
+                
             }
+
+
+            
+        }
+            else
+            {
+                log.LogError("NO LEADS LEFT");
             }
 
            
 
            
-            }
+     }
 
     private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details, string rowKey)
     {
