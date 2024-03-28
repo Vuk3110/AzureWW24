@@ -18,7 +18,7 @@ namespace AzureWW24.EmailSchema
         public string GetBodyWithoutPhone(LeadEntity leadEntity)
         {
             string body = "Dear sales,\r\n" +
-                "" + leadEntity.First + " " + leadEntity.Last + " has reqestest a move with following data.\r\n" +
+                "" + leadEntity.First + " " + leadEntity.Last + "has requested a move with following data.\r\n" +
                 "Date: " + leadEntity.Date + "\r\n" +
                 "Size: " + leadEntity.Size + "\r\n" +
                 "Service type: " + leadEntity.ServiceType + "\r\n" +

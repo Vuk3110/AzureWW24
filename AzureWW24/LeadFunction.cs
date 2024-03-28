@@ -95,7 +95,7 @@ namespace AzureWW24
 
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("* */5  * * * *")] TimerInfo myTimer, ILogger log)
+        public static async Task SendMail([TimerTrigger("* */5  * * * *") ] TimerInfo myTimer, ILogger log)
 
 
 
@@ -110,9 +110,12 @@ namespace AzureWW24
 
                 foreach(var leadToDelete in tableClient.Query<LeadEntity>())
                 {
-                    bool breakPoint = false;
+                  
 
-                    while (leadToDelete.TryCount < 5 && !breakPoint)
+                    
+               
+
+                
                         try
                         {
 
@@ -180,7 +183,7 @@ namespace AzureWW24
 
 
                                 log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
-                                breakPoint = true;
+                               
                             }
 
                             else if (leadToDelete.TryCount == 4)
@@ -189,14 +192,15 @@ namespace AzureWW24
 
                                 await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
 
-
+                        log.LogInformation("Number of tries is more than 5.");
                                 log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
-                                breakPoint = true;
+                          
                             }
 
 
 
                         }
+                    
 
                         catch (Exception ex)
                         {
@@ -205,30 +209,12 @@ namespace AzureWW24
                             leadToDelete.TryCount++;
 
                         }
+                
 
 
-
-                }
-
-
-
+            }
             
 
-
-
-            //    if (leadToDelete != null)
-            //    {
-                    
-                   
-            //    else
-            //    {
-            //        log.LogError("NO LEADS LEFT");
-            //       // leadsAvailable = false;
-            //        return;
-                   
-            //    }
-
-            //}
 
 
         }
