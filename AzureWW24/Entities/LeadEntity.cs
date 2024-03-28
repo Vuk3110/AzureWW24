@@ -43,9 +43,25 @@ namespace AzureWW24.Entities
         public int TryCount { get; set; }
 
 
-     
+        public string LeadData { get; set; }
+
+        [IgnoreProperty]
+        public Lead Lead
+        {
+            get => string.IsNullOrEmpty(LeadData) ? null : JsonConvert.DeserializeObject<Lead>(LeadData);
+            set => LeadData = JsonConvert.SerializeObject(value);
+        }
 
         public LeadEntity() { }
+
+        public LeadEntity(string source, string leadId, Lead lead)
+        {
+            PartitionKey = source;
+            RowKey = leadId;
+            Lead = lead;
+        }
+
+
 
        
     }

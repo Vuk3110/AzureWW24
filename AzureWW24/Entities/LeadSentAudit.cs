@@ -18,8 +18,8 @@ namespace AzureWW24.Entities
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
 
-     
-        
+       
+
         public bool IsSuccessful { get; set; }
         public string Details { get; set; }
 
