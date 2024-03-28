@@ -37,10 +37,20 @@ namespace AzureWW24
 
             if (!validationResult.IsValid)
             {
+               
+                var errorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                var errorDetails = String.Join("; ", errorMessages);
+
+               
+                foreach (var errorMessage in errorMessages)
+                {
+                    log.LogError($"Validation Error: {errorMessage}");
+                }
+
                 var errorResponse = new
                 {
                     Error = "validation error",
-                    Details = validationResult.Errors.Select(e => e.ErrorMessage)
+                    Details = errorMessages
                 };
                 await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)), "");
                 return new BadRequestObjectResult(errorResponse);
@@ -91,22 +101,17 @@ namespace AzureWW24
 
         {
 
-            bool leadsAvailable = true;
-
-            while (leadsAvailable)
-            {
-
+           
 
                 var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
-                var leadToDelete = tableClient.Query<LeadEntity>().FirstOrDefault();
 
+                
+      
 
-
-
-
-                if (leadToDelete != null)
+                foreach(var leadToDelete in tableClient.Query<LeadEntity>())
                 {
                     bool breakPoint = false;
+
                     while (leadToDelete.TryCount < 5 && !breakPoint)
                         try
                         {
@@ -169,7 +174,7 @@ namespace AzureWW24
                             }
                             if (sentMail)
                             {
-                               await CreateLeadSentAudit(sentMail, message, rowKey);
+                                //await CreateLeadSentAudit(sentMail, message, rowKey);
 
                                 await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
 
@@ -180,7 +185,7 @@ namespace AzureWW24
 
                             else if (leadToDelete.TryCount == 4)
                             {
-                                await CreateLeadSentAudit(sentMail, message, rowKey);
+                                // await CreateLeadSentAudit(sentMail, message, rowKey);
 
                                 await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
 
@@ -204,15 +209,26 @@ namespace AzureWW24
 
 
                 }
-                else
-                {
-                    log.LogError("NO LEADS LEFT");
-                   // leadsAvailable = false;
-                    return;
-                   
-                }
 
-            }
+
+
+            
+
+
+
+            //    if (leadToDelete != null)
+            //    {
+                    
+                   
+            //    else
+            //    {
+            //        log.LogError("NO LEADS LEFT");
+            //       // leadsAvailable = false;
+            //        return;
+                   
+            //    }
+
+            //}
 
 
         }
