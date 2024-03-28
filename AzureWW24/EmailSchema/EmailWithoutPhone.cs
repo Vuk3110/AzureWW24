@@ -11,8 +11,8 @@ namespace AzureWW24.EmailSchema
     {
         public string GetSubjectWithoutPhone(LeadEntity leadEntity)
         {
-            string head = "A New Lead Has Arrived for " + leadEntity.Date + " without phone";
-            return head;
+            string subject = "A New Lead Has Arrived for " + leadEntity.Date + " without phone";
+            return subject;
         }
 
         public string GetBodyWithoutPhone(LeadEntity leadEntity)

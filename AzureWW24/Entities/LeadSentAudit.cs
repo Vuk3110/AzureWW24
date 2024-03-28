@@ -18,13 +18,8 @@ namespace AzureWW24.Entities
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
 
-        public string LeadData { get; set; }
-        [IgnoreProperty]
-        public Lead Lead
-        {
-            get => string.IsNullOrEmpty(LeadData) ? null : JsonConvert.DeserializeObject<Lead>(LeadData);
-            set => LeadData = JsonConvert.SerializeObject(value);
-        }
+     
+        
         public bool IsSuccessful { get; set; }
         public string Details { get; set; }
 

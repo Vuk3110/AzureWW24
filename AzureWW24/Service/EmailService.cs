@@ -26,6 +26,7 @@ namespace AzureWW24
 
         public void SendEmail(string fromAddress, string toAddress, string subject, string body)
         {
+
             var fromMailAddress = new MailAddress(fromAddress);
             var toMailAddress = new MailAddress(toAddress);
 
@@ -44,6 +45,7 @@ namespace AzureWW24
                 Body = body
             })
             {
+               
                 smtp.Send(message);
             }
         }

@@ -42,7 +42,7 @@ namespace AzureWW24
                     Error = "validation error",
                     Details = validationResult.Errors.Select(e => e.ErrorMessage)
                 };
-                await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)),"");
+                await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)), "");
                 return new BadRequestObjectResult(errorResponse);
             }
 
@@ -82,132 +82,158 @@ namespace AzureWW24
             return new OkObjectResult("");
         }
 
-       
+
 
         [FunctionName("SendEmail")]
-        public static async Task SendMail([TimerTrigger("*/10  *  * * * *")] TimerInfo myTimer,  ILogger log)
+        public static async Task SendMail([TimerTrigger("*  */5  * * * *")] TimerInfo myTimer, ILogger log)
 
 
 
         {
 
-            
+
             var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "Leads");
 
 
-           
+
             var leadToDelete = tableClient.Query<LeadEntity>().FirstOrDefault();
-           
-            if(leadToDelete != null)
+
+            if (leadToDelete != null)
             {
                 bool breakPoint = false;
-            while(leadToDelete.TryCount<5&&!breakPoint)
-            try
-            {
-                    
-                         
-                    string rowKey = leadToDelete.RowKey;
-
-                    string smtpServer = "smtp.gmail.com";
-                    int smtpPort = 587;
-                    bool enableSSL = true;
-                    string username = "vuktrific@gmail.com";
-                    string password = Environment.GetEnvironmentVariable("password");
-                    string message;
-
-                    var emailService = new EmailService(smtpServer, smtpPort, enableSSL, username, password);
-
-                    string subject = "";
-                    string body = "";
-
-                    string toAddress = leadToDelete.FromState == "MD" ? Environment.GetEnvironmentVariable("MarylandEmail")
-                        : Environment.GetEnvironmentVariable("NonMarylandEmail");
-
-                    string fromAddress = Environment.GetEnvironmentVariable("fromAddress");
-                    if (!string.IsNullOrEmpty(leadToDelete.Phone))
-                    {
-                        EmailWithPhone emailWithPhone = new();
-                        body = emailWithPhone.GetBodyWithPhone(leadToDelete);
-                        subject = emailWithPhone.GetSubjectWithPhone(leadToDelete);
-
-                    }
-
-                    else
-                    {
-                        EmailWithoutPhone emailWithoutPhone = new();
-                        body=emailWithoutPhone.GetBodyWithoutPhone(leadToDelete);
-                        subject=emailWithoutPhone.GetSubjectWithoutPhone(leadToDelete);
-                    }
-                    
-                  
-                  
-
-                    bool sentMail;
-                 
+                while (leadToDelete.TryCount<5 && !breakPoint)
                     try
                     {
-                        
-                        emailService.SendEmail(fromAddress, toAddress, subject, body);
-                        message = "Email sent successfully!";
-                        
-                         sentMail = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        message= ex.Message;
-                      
-                         sentMail = false;
-                         leadToDelete.TryCount++;
+
+
+                        string rowKey = leadToDelete.RowKey;
+
+                        string smtpServer = "smtp.gmail.com";
+                        int smtpPort = 587;
+                        bool enableSSL = true;
+                        string username = Environment.GetEnvironmentVariable("fromAddress");
+                        string password = Environment.GetEnvironmentVariable("password");
+
+                        string message;
+
+                        var emailService = new EmailService(smtpServer, smtpPort, enableSSL, username, password);
+
+                        string fromAddress = Environment.GetEnvironmentVariable("fromAddress");
+                        string subject = "";
+                        string body = "";
+
+                        string toAddress = leadToDelete.FromState == "MD" ? Environment.GetEnvironmentVariable("MarylandEmail")
+                            : Environment.GetEnvironmentVariable("NonMarylandEmail");
+
+                       
+                        if (!string.IsNullOrEmpty(leadToDelete.Phone))
+                        {
+                            EmailWithPhone emailWithPhone = new();
+                            body = emailWithPhone.GetBodyWithPhone(leadToDelete);
+                            subject = emailWithPhone.GetSubjectWithPhone(leadToDelete);
+
                         }
 
-                    await CreateLeadSentAudit(sentMail, message, rowKey);
-                   
-                    await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
+                        else
+                        {
+                            EmailWithoutPhone emailWithoutPhone = new();
+                            body = emailWithoutPhone.GetBodyWithoutPhone(leadToDelete);
+                            subject = emailWithoutPhone.GetSubjectWithoutPhone(leadToDelete);
+                        }
 
-                    
-                    log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
-                        breakPoint = true;
+
+
+
+                        bool sentMail;
+
+                        try
+                        {
+
+                            emailService.SendEmail(fromAddress, toAddress, subject, body);
+                            message = "Email sent successfully!";
+
+                            sentMail = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            message = ex.Message;
+
+                            sentMail = false;
+                            leadToDelete.TryCount++;
+                        }
+                        if (sentMail)
+                        {
+                            await CreateLeadSentAudit(sentMail, message, rowKey);
+
+                            await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
+
+
+                            log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
+                            breakPoint = true;
+                        }
+
+                        else if (leadToDelete.TryCount == 4)
+                        {
+                            await CreateLeadSentAudit(sentMail, message, rowKey);
+
+                            await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
+
+
+                            log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
+                            breakPoint = true;
+                        }
                         
-                
-            }
 
-            catch (Exception ex)
-            {
 
-                log.LogError($"Greška pri slanju emaila: {ex.Message}");
+                    }
+
+                    catch (Exception ex)
+                    {
+
+                        log.LogError($"Error with sending e-mail: {ex.Message}");
                         leadToDelete.TryCount++;
-                
+
+                    }
+
+
+
             }
-
-
-            
-        }
             else
             {
                 log.LogError("NO LEADS LEFT");
             }
 
-           
 
-           
-     }
 
-    private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details, string rowKey)
-    {
-        var auditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadsReceivedAudit");
-        await auditTableClient.CreateIfNotExistsAsync();
 
-        var auditEntity = new LeadAuditEntity
+        }
+
+        private static async Task CreateAndLogAuditRecord(string requestBody, bool isSuccess, string details, string rowKey)
         {
-            PartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd"),
-            RowKey =rowKey,
-            IsSuccessful = isSuccess,
-            Details = details,
-            RequestPayload = requestBody
-        };
+            var auditTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), "LeadsReceivedAudit");
 
-        await auditTableClient.AddEntityAsync(auditEntity);
-    }
+            string newRowKey;
+            if(isSuccess)
+            {
+                newRowKey= rowKey;
+            }
+            else
+            {
+                newRowKey= Guid.NewGuid().ToString();
+            }
+            await auditTableClient.CreateIfNotExistsAsync();
+
+            var auditEntity = new LeadAuditEntity
+            {
+                PartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                RowKey = newRowKey,
+                IsSuccessful = isSuccess,
+                Details = details,
+                RequestPayload = requestBody
+            };
+
+            await auditTableClient.AddEntityAsync(auditEntity);
+        }
 
         private static async Task CreateLeadSentAudit(bool isSuccess, string details, string rowKey)
         {
@@ -220,7 +246,7 @@ namespace AzureWW24
                 RowKey = rowKey,
                 IsSuccessful = isSuccess,
                 Details = details,
-                
+
             };
 
             await sentAuditTableClient.AddEntityAsync(sentAutid);

@@ -11,8 +11,8 @@ namespace AzureWW24.EmailSchema
     {
         public string GetSubjectWithPhone(LeadEntity leadEntity)
         {
-            string head = "A New Lead Has Arrived for " + leadEntity.Date + " with phone";
-            return head;
+            string subject = "A New Lead Has Arrived for " + leadEntity.Date + " with phone";
+            return subject;
         }
 
         public string GetBodyWithPhone(LeadEntity leadEntity)

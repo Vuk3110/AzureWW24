@@ -13,7 +13,7 @@ namespace AzureWW24.Models.Validator
         public LeadValidator()
         {
             RuleFor(lead => lead.Source).NotEmpty().WithMessage("invalid source");
-            RuleFor(lead => lead.Date).Must(IsValidDate); 
+            RuleFor(lead => lead.Date).NotEmpty().Must(IsValidDate); 
             RuleFor(lead => lead.Size).GreaterThan(0);
       
 
