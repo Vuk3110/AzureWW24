@@ -192,8 +192,8 @@ namespace AzureWW24
 
                                 await tableClient.DeleteEntityAsync(leadToDelete.PartitionKey, leadToDelete.RowKey);
 
-                        log.LogInformation("Number of tries is more than 5.");
-                                log.LogInformation($"Lead {leadToDelete.RowKey} processed and deleted.");
+                                log.LogInformation($"Number of tries is more than 5. Lead {leadToDelete.RowKey} was deleted.");
+                                
                           
                             }
 
