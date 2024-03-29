@@ -53,6 +53,7 @@ namespace AzureWW24
                     Details = errorMessages
                 };
                 await CreateAndLogAuditRecord(requestBody, false, String.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)), "");
+              
                 return new BadRequestObjectResult(errorResponse);
             }
 
@@ -85,7 +86,7 @@ namespace AzureWW24
 
 
             await CreateAndLogAuditRecord(requestBody, true, "Request processed successfully", leadEntity.RowKey);
-
+            log.LogInformation($"Lead {leadEntity.RowKey} was created successfully!");
             await tableClient.AddEntityAsync(leadEntity);
 
 
@@ -242,6 +243,7 @@ namespace AzureWW24
                 Details = details,
                 RequestPayload = requestBody
             };
+
 
             await auditTableClient.AddEntityAsync(auditEntity);
         }
